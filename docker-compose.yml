@@ -1,18 +1,32 @@
-version: "3"
+version: '3.4'
 services:
   app:
-    container_name: app
+    container_name: node_express_app
+    image: node:slim
     restart: always
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
     ports:
       - "8080:8000"
-    links:
-      - mongo
-  
-  mongo:
-    container_name: mongo
-    image: mongo
-    volume:
-      - ./data:data/db
+    depends_on:
+      - db
+    networks:
+      - restnet
+  db:
+    container_name: mongoDB
+    image: mongo:latest
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/carMax
+    volumes:
+      - "data:/data/db"
     ports:
       - "27017:27017"
+    networks:
+      - restnet
+networks:
+  restnet:
+    driver: bridge
+volumes:
+  data:

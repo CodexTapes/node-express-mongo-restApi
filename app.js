@@ -20,6 +20,9 @@ const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('connected to mongo database'))
 
+const carRouter = require('./routes/router');
+app.use('/api/car/', carMaxRouter)
+
 app.listen(port, () => {
     console.log(`running on ${port}`);
 })

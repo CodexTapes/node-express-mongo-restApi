@@ -1,13 +1,13 @@
-FROM node:latest
+FROM node:slim
 
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY package.json /app
+COPY package.json ./
 
 RUN npm install
 
 COPY . .
 
 EXPOSE 8000
-CMD ["npm", "start"]
+CMD ["npm", "run","dev"]
