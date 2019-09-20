@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const carSchema = new mongoose.Schema({
-    manufacturer: {
+    carId: {
+        type: {},
+        required: true
+    },
+    make: {
         type: String,
         required: true
     },
